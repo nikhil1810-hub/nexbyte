@@ -192,21 +192,63 @@ and performance-focused design. Built for results, not just looks.
 © 2026 NexByte — Built to Grow 🚀
 </footer>
 
-<script>
-function openModal(type){
-document.getElementById("authModal").style.display="flex";
-document.getElementById("authTitle").innerText=type}
-function closeModal(){
-document.getElementById("authModal").style.display="none"}
+<script type="module">
+  // 🔥 FIREBASE IMPORTS (CDN – GitHub Pages safe)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const reveals=document.querySelectorAll('.reveal');
-window.addEventListener('scroll',()=>{
-reveals.forEach(el=>{
-if(el.getBoundingClientRect().top<window.innerHeight-100)
-el.classList.add('active')
-})
-})
+  // 🔐 FIREBASE CONFIG (YOURS – ALREADY CORRECT)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCpRtpMjvaMzxRM05p0gCCzeuB10CBxFE",
+    authDomain: "nexbyte-194d4.firebaseapp.com",
+    projectId: "nexbyte-194d4",
+    storageBucket: "nexbyte-194d4.appspot.com",
+    messagingSenderId: "96208983748",
+    appId: "1:96208983748:web:1a3cf31dc5d609547d1b91"
+  };
+
+  // 🔥 INIT FIREBASE
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // 🔓 MODAL CONTROLS (RESTORED)
+  window.openModal = function(type){
+    document.getElementById("authModal").style.display="flex";
+    document.getElementById("authTitle").innerText = type;
+  }
+
+  window.closeModal = function(){
+    document.getElementById("authModal").style.display="none";
+  }
+
+  // 🔐 SIGN UP
+  window.signUp = function(){
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => alert("Signup successful ✅"))
+      .catch(err => alert(err.message));
+  }
+
+  // 🔐 LOGIN
+  window.login = function(){
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => alert("Login successful ✅"))
+      .catch(err => alert(err.message));
+  }
+
+  // ✨ SCROLL ANIMATION (RESTORED)
+  const reveals = document.querySelectorAll('.reveal');
+  window.addEventListener('scroll', () => {
+    reveals.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+        el.classList.add('active');
+      }
+    });
+  });
 </script>
-
-</body>
-</html>
