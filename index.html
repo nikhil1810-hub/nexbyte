@@ -30,8 +30,6 @@ z-index:-1}
 .auth-icons span:hover{color:#38bdf8}
 
 section{padding:90px 10%}
-h2{text-align:center;font-size:2.6rem;margin-bottom:35px}
-
 .logo{text-align:center;font-size:4rem;font-weight:900;
 background:linear-gradient(90deg,#38bdf8,#2563eb);
 -webkit-background-clip:text;-webkit-text-fill-color:transparent;
@@ -118,20 +116,23 @@ footer{text-align:center;padding:30px;color:#94a3b8}
 © 2026 NexByte — Built to Grow 🚀
 </footer>
 
-<!-- 🔥 FIREBASE + JS -->
+<!-- 🔥 FIREBASE AUTH (FINAL) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-/* 🔐 FIREBASE CONFIG */
+/* 🔐 FIREBASE CONFIG (NEW WEB APP - CDN) */
 const firebaseConfig = {
-  apiKey: "AIzaSyCpRtpMjvaMzxRM05p0gCCzeuB10CBxFE",
+  apiKey: "AIzaSyCpRptMjvaMzzXRMO5pOqCCzeuB10CBxFE",
   authDomain: "nexbyte-194d4.firebaseapp.com",
   projectId: "nexbyte-194d4",
   storageBucket: "nexbyte-194d4.appspot.com",
   messagingSenderId: "96208983748",
-  appId: "1:96208983748:web:1a3cf31dc5d609547d1b91"
+  appId: "1:96208983748:web:20d6f47bd0d6ec427d1b91"
 };
 
 const app = initializeApp(firebaseConfig);
