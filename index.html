@@ -70,6 +70,7 @@ nav a{
   letter-spacing:.12em;
 }
 nav a:hover{color:var(--ink)}
+nav a.auth-accent{color:var(--accent)}
 
 /* SECTIONS */
 section{
@@ -174,7 +175,7 @@ footer{
   color:var(--muted);
 }
 
-/* ================= PREMIUM FLOATING BUTTONS ================= */
+/* FLOAT BUTTONS */
 .float-wrap{
   position:fixed;
   bottom:28px;
@@ -183,7 +184,6 @@ footer{
   gap:14px;
   z-index:1200;
 }
-
 .float-btn{
   width:54px;
   height:54px;
@@ -194,27 +194,75 @@ footer{
   backdrop-filter:blur(12px);
   background:rgba(255,255,255,.06);
   border:1px solid rgba(198,161,91,.45);
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.55),
-    inset 0 0 0 1px rgba(198,161,91,.15);
-  transition:.35s ease;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);
 }
-
 .float-btn svg{
   width:22px;
   height:22px;
   stroke:var(--accent);
 }
 
-.float-btn:hover{
-  transform:translateY(-6px);
-  background:rgba(198,161,91,.12);
-  box-shadow:
-    0 20px 50px rgba(0,0,0,.8),
-    inset 0 0 0 2px rgba(198,161,91,.35);
+/* AUTH MODAL (ADDED ONLY) */
+.auth-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
 }
+.auth-box{
+  width:360px;
+  padding:40px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  box-shadow:0 40px 100px rgba(0,0,0,.9);
+  position:relative;
+}
+.auth-box h2{
+  font-family:"Playfair Display",serif;
+  margin-bottom:28px;
+}
+.auth-box input{
+  width:100%;
+  padding:12px;
+  margin-bottom:18px;
+  background:#000;
+  border:1px solid var(--line);
+  color:var(--ink);
+}
+.auth-box button{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--accent);
+  background:none;
+  color:var(--accent);
+  letter-spacing:.2em;
+}
+.auth-box button:hover{
+  background:var(--accent);
+  color:#000;
+}
+.auth-box p{
+  margin-top:18px;
+  font-size:.8rem;
+  color:var(--muted);
+}
+.auth-box span{
+  color:var(--accent);
+  cursor:pointer;
+}
+.close{
+  position:absolute;
+  top:14px;
+  right:18px;
+  font-size:1.4rem;
+  cursor:pointer;
+}
+.hidden{display:none}
 
-/* RESPONSIVE */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr}
   .hero h1{font-size:3.4rem}
@@ -236,6 +284,8 @@ footer{
     <a href="#proof">PROOF</a>
     <a href="#pricing">PRICING</a>
     <a href="#contact">CONTACT</a>
+    <a href="#" onclick="openAuth('login')">LOGIN</a>
+    <a href="#" onclick="openAuth('signup')" class="auth-accent">SIGN UP</a>
   </div>
 </nav>
 
@@ -339,25 +389,28 @@ footer{
 © 2026 NEXBYTE — AUTHORITY BY DESIGN.
 </footer>
 
-<!-- PREMIUM FLOATING BUTTONS -->
-<div class="float-wrap">
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <span class="close" onclick="closeAuth()">×</span>
 
-  <!-- CALL -->
-  <a href="tel:+917558721132" class="float-btn" aria-label="Call">
-    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8">
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="M2 5.5C2 4.12 3.12 3 4.5 3h2.1c.7 0 1.3.5 1.45 1.18l.5 2.3c.14.65-.2 1.3-.8 1.56l-1.1.48a15.3 15.3 0 006.5 6.5l.48-1.1c.26-.6.9-.94 1.56-.8l2.3.5c.68.15 1.18.75 1.18 1.45v2.1c0 1.38-1.12 2.5-2.5 2.5C8.7 21.5 2 14.8 2 5.5z"/>
-    </svg>
-  </a>
+    <div id="loginForm">
+      <h2>Welcome Back</h2>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button>LOGIN</button>
+      <p>New here? <span onclick="switchAuth()">Create account</span></p>
+    </div>
 
-  <!-- WHATSAPP -->
-  <a href="https://wa.me/917558721132" target="_blank" class="float-btn" aria-label="WhatsApp">
-    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8">
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="M12 2a10 10 0 00-8.9 14.5L2 22l5.7-1.5A10 10 0 1012 2z"/>
-    </svg>
-  </a>
-
+    <div id="signupForm" class="hidden">
+      <h2>Create Account</h2>
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button>SIGN UP</button>
+      <p>Already have an account? <span onclick="switchAuth()">Login</span></p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -366,6 +419,19 @@ window.addEventListener("load",()=>{
   l.style.opacity="0";
   setTimeout(()=>l.style.display="none",800);
 });
+
+function openAuth(type){
+  document.getElementById("authOverlay").style.display="flex";
+  document.getElementById("loginForm").classList.toggle("hidden", type==="signup");
+  document.getElementById("signupForm").classList.toggle("hidden", type==="login");
+}
+function closeAuth(){
+  document.getElementById("authOverlay").style.display="none";
+}
+function switchAuth(){
+  document.getElementById("loginForm").classList.toggle("hidden");
+  document.getElementById("signupForm").classList.toggle("hidden");
+}
 </script>
 
 </body>
