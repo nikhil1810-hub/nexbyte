@@ -1,273 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>NexByte — Designed to Be Remembered</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NexByte — Web Design Studio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#f6f7fb;
-  --ink:#0a0f1f;
-  --muted:#5b647a;
-  --line:#e6e8f0;
-  --accent:#3b82f6;
+  --bg:#000;
+  --ink:#eaeaea;
+  --muted:#9a9a9a;
+  --accent:#c6a15b;
+  --line:#1a1a1a;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-
 body{
   background:var(--bg);
   color:var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
-  line-height:1.65;
+  font-family:Inter,sans-serif;
+  letter-spacing:.02em;
 }
 
-/* HEADER */
-header{
+/* LOADER */
+.loader{
   position:fixed;
-  top:0;left:0;right:0;
-  background:rgba(246,247,251,.9);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-  z-index:1000;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3000;
+  transition:opacity .8s ease;
 }
-.header-inner{
-  max-width:1300px;
-  margin:auto;
-  padding:18px 28px;
+.loader span{
+  font-family:"Playfair Display",serif;
+  font-size:2rem;
+  letter-spacing:.4em;
+  color:var(--accent);
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{
+  0%{opacity:.3}
+  50%{opacity:1}
+  100%{opacity:.3}
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  inset:0 0 auto 0;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:24px 40px;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  z-index:1000;
 }
 nav a{
-  margin-left:32px;
   color:var(--muted);
   text-decoration:none;
-  font-size:.95rem;
+  margin-left:32px;
+  font-size:.85rem;
+  letter-spacing:.12em;
 }
 nav a:hover{color:var(--ink)}
 
+/* SECTIONS */
 section{
-  max-width:1300px;
+  min-height:100vh;
+  padding:160px 40px;
+  max-width:1400px;
   margin:auto;
-  padding:180px 28px 140px;
 }
 
 /* HERO */
 .hero{
   display:grid;
   grid-template-columns:1.2fr .8fr;
-  gap:80px;
+  gap:120px;
+  align-items:center;
 }
 .hero h1{
-  font-size:4.6rem;
-  font-weight:700;
-  letter-spacing:-.03em;
+  font-family:"Playfair Display",serif;
+  font-size:5rem;
   line-height:1.05;
 }
 .hero h1 span{color:var(--accent)}
 .hero p{
-  margin-top:36px;
-  font-size:1.25rem;
+  margin-top:32px;
   color:var(--muted);
   max-width:520px;
 }
-.hero-actions{margin-top:48px}
 .btn{
   display:inline-block;
-  padding:16px 38px;
-  border-radius:12px;
-  font-weight:600;
+  margin-top:56px;
+  padding:14px 36px;
+  border:1px solid var(--accent);
+  color:var(--accent);
   text-decoration:none;
-  background:var(--ink);
-  color:white;
-  margin-right:16px;
-  transition:.25s;
+  font-size:.8rem;
+  letter-spacing:.18em;
 }
-.btn:hover{transform:translateY(-2px)}
-.btn.alt{
-  background:transparent;
-  color:var(--ink);
-  border:1px solid var(--line);
+.btn:hover{
+  background:var(--accent);
+  color:#000;
 }
-
-.hero-visual{
-  margin-top:120px;
-}
-.hero-visual img{
-  width:100%;
-  border-radius:28px;
-  box-shadow:0 40px 120px rgba(0,0,0,.18);
-  transition:.4s;
-}
-.hero-visual img:hover{transform:translateY(-6px)}
 
 /* STATEMENT */
 .statement{
-  padding:120px 0;
-}
-.statement p{
-  font-size:2.2rem;
-  font-weight:500;
+  font-family:"Playfair Display",serif;
+  font-size:2.6rem;
   max-width:900px;
 }
 
-/* CASE STUDY */
-.case{
+/* GRIDS */
+.grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:80px;
-  align-items:center;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:48px;
 }
-.case img{
-  width:100%;
-  border-radius:24px;
+.card{
+  border-top:1px solid var(--line);
+  padding-top:32px;
 }
-.case h2{
-  font-size:3rem;
-  margin-bottom:24px;
+.card h3{
+  font-family:"Playfair Display",serif;
+  margin-bottom:14px;
 }
-.case p{color:var(--muted)}
+.price{
+  color:var(--accent);
+  font-size:1.8rem;
+  margin-bottom:20px;
+}
 
-/* TESTIMONIALS */
-.testimonials{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:40px;
+/* TESTIMONIAL */
+.testimonial{
+  font-style:italic;
+  color:var(--muted);
 }
-.quote{
-  padding:36px;
-  background:white;
-  border-radius:22px;
+.testimonial span{
+  display:block;
+  margin-top:16px;
+  color:var(--ink);
+  font-style:normal;
+}
+
+/* LEAD */
+.lead{
   border:1px solid var(--line);
+  padding:80px;
+  text-align:center;
 }
-.quote p{color:var(--muted)}
-.quote strong{display:block;margin-top:18px}
-
-/* MANIFESTO */
-.manifesto{
-  font-size:1.4rem;
-  max-width:900px;
+.lead h2{
+  font-family:"Playfair Display",serif;
+  font-size:3rem;
+}
+.lead p{
+  margin-top:24px;
   color:var(--muted);
 }
 
 /* FOOTER */
 footer{
-  padding:80px 28px;
+  border-top:1px solid var(--line);
+  padding:80px 40px;
   text-align:center;
   color:var(--muted);
-  border-top:1px solid var(--line);
+}
+
+/* ================= PREMIUM FLOATING BUTTONS ================= */
+.float-wrap{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  display:flex;
+  gap:14px;
+  z-index:1200;
+}
+
+.float-btn{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(198,161,91,.45);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(198,161,91,.15);
+  transition:.35s ease;
+}
+
+.float-btn svg{
+  width:22px;
+  height:22px;
+  stroke:var(--accent);
+}
+
+.float-btn:hover{
+  transform:translateY(-6px);
+  background:rgba(198,161,91,.12);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.8),
+    inset 0 0 0 2px rgba(198,161,91,.35);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero h1{font-size:3.4rem}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="header-inner">
-    <strong>NexByte</strong>
-    <nav>
-      <a href="#work">Work</a>
-      <a href="#thinking">Thinking</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <span>NEXBYTE</span>
+</div>
+
+<nav>
+  <strong style="letter-spacing:.25em">NEXBYTE</strong>
+  <div>
+    <a href="#why">WHY</a>
+    <a href="#proof">PROOF</a>
+    <a href="#pricing">PRICING</a>
+    <a href="#contact">CONTACT</a>
   </div>
-</header>
+</nav>
 
-<!-- HERO -->
-<section>
-  <div class="hero">
-    <div>
-      <h1>We design websites<br>people <span>remember</span>.</h1>
-      <p>
-        NexByte creates digital experiences that feel intentional,
-        global, and quietly bold — never ordinary.
-      </p>
-      <div class="hero-actions">
-        <a class="btn" href="#contact">Start a Project</a>
-        <a class="btn alt" href="https://wa.me/917558721132">WhatsApp</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80">
-    </div>
-  </div>
-</section>
-
-<!-- STATEMENT -->
-<section class="statement">
-  <p>
-    Extraordinary design doesn’t shout.  
-    It earns attention through clarity, restraint, and intent.
-  </p>
-</section>
-
-<!-- CASE STUDY -->
-<section id="work">
-  <div class="case">
-    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80">
-    <div>
-      <h2>A website built to feel inevitable.</h2>
-      <p>
-        We approached this project with one question:
-        “What would this look like if nothing unnecessary existed?”
-      </p>
-      <p>
-        The result was a calm, asymmetric layout that guided users
-        naturally — without pressure.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section>
-  <div class="testimonials">
-    <div class="quote">
-      <p>“This didn’t feel like hiring a vendor. It felt like working with someone who actually cared.”</p>
-      <strong>— Startup Founder</strong>
-    </div>
-    <div class="quote">
-      <p>“Our site finally reflects the level we operate at.”</p>
-      <strong>— Business Owner</strong>
-    </div>
-    <div class="quote">
-      <p>“Clean, thoughtful, and surprisingly effective.”</p>
-      <strong>— Product Lead</strong>
-    </div>
-  </div>
-</section>
-
-<!-- MANIFESTO -->
-<section id="thinking">
-  <p class="manifesto">
-    We believe good design is calm.  
-    It respects the user’s intelligence.  
-    It removes friction instead of adding flair.  
-    And it never explains itself loudly.
-  </p>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="statement">
+<section class="hero">
+  <div>
+    <h1>Web design that<br><span>earns trust.</span></h1>
     <p>
-      If you’re ready to build something that doesn’t look like
-      everything else — let’s talk.
+      NexByte builds websites that make businesses
+      look credible, confident, and worth choosing.
     </p>
-    <br>
-    <p style="font-size:1.1rem;color:var(--muted)">
-      📧 nikhilramgirwar20@gmail.com<br>
-      📞 7558721132 · Pune
-    </p>
+    <a class="btn" href="#contact">START YOUR PROJECT</a>
   </div>
+</section>
+
+<section class="statement">
+  Your website should justify your price  
+  before you ever speak.
+</section>
+
+<section id="why">
+  <h2 style="font-family:Playfair Display;font-size:3.2rem;margin-bottom:80px">
+    Why NexByte
+  </h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Design Psychology</h3>
+      <p>Layouts engineered to reduce doubt and build trust.</p>
+    </div>
+    <div class="card">
+      <h3>No Templates</h3>
+      <p>Every site is custom — because your business is.</p>
+    </div>
+    <div class="card">
+      <h3>Conversion First</h3>
+      <p>If it doesn’t convert, it doesn’t belong.</p>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <h2 style="font-family:Playfair Display;font-size:3.2rem;margin-bottom:80px">
+    What Clients Say
+  </h2>
+  <div class="grid">
+    <div class="card testimonial">
+      “People started taking my business seriously.”
+      <span>— Local Business Owner</span>
+    </div>
+    <div class="card testimonial">
+      “Clean, premium, and extremely professional.”
+      <span>— Startup Founder</span>
+    </div>
+    <div class="card testimonial">
+      “The website itself brings enquiries.”
+      <span>— Service Provider</span>
+    </div>
+  </div>
+</section>
+
+<section class="lead">
+  <h2>Free Website Audit</h2>
+  <p>
+    Get a professional review of your website
+    and learn exactly what’s blocking conversions.
+  </p>
+  <a class="btn" href="https://wa.me/917558721132">REQUEST AUDIT</a>
+</section>
+
+<section id="pricing">
+  <h2 style="font-family:Playfair Display;font-size:3.2rem;margin-bottom:80px">
+    Pricing
+  </h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Starter</h3>
+      <p class="price">₹3,999</p>
+      <p>One-page · WhatsApp leads · Fast launch</p>
+    </div>
+    <div class="card">
+      <h3>Business</h3>
+      <p class="price">₹6,999</p>
+      <p>Multi-page · SEO-ready · Premium UI</p>
+    </div>
+    <div class="card">
+      <h3>Brand</h3>
+      <p class="price">Custom</p>
+      <p>High-end UX · Strategy · Scale-ready</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="statement">
+  Ready to look like a serious business?
+  <p style="margin-top:32px;font-size:1rem;color:var(--muted)">
+    📧 nikhilramgirwar20@gmail.com<br>
+    📞 7558721132 · Pune
+  </p>
 </section>
 
 <footer>
-© 2026 NexByte — Designed with intent.
+© 2026 NEXBYTE — AUTHORITY BY DESIGN.
 </footer>
+
+<!-- PREMIUM FLOATING BUTTONS -->
+<div class="float-wrap">
+
+  <!-- CALL -->
+  <a href="tel:+917558721132" class="float-btn" aria-label="Call">
+    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M2 5.5C2 4.12 3.12 3 4.5 3h2.1c.7 0 1.3.5 1.45 1.18l.5 2.3c.14.65-.2 1.3-.8 1.56l-1.1.48a15.3 15.3 0 006.5 6.5l.48-1.1c.26-.6.9-.94 1.56-.8l2.3.5c.68.15 1.18.75 1.18 1.45v2.1c0 1.38-1.12 2.5-2.5 2.5C8.7 21.5 2 14.8 2 5.5z"/>
+    </svg>
+  </a>
+
+  <!-- WHATSAPP -->
+  <a href="https://wa.me/917558721132" target="_blank" class="float-btn" aria-label="WhatsApp">
+    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M12 2a10 10 0 00-8.9 14.5L2 22l5.7-1.5A10 10 0 1012 2z"/>
+    </svg>
+  </a>
+
+</div>
+
+<script>
+window.addEventListener("load",()=>{
+  const l=document.getElementById("loader");
+  l.style.opacity="0";
+  setTimeout(()=>l.style.display="none",800);
+});
+</script>
 
 </body>
 </html>
